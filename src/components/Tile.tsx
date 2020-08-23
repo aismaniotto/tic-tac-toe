@@ -1,13 +1,21 @@
 import React from "react";
 import "../styles/Tile.css";
+import { Player } from "../Game/types";
 
 interface Props {
-  text?: any;
+  onClick?: () => void;
+  playerTile?: Player;
   className?: string;
 }
 
 const Tile: React.FC<Props> = (props: Props) => {
-  return <div className={`tile ${props.className}`}>{props.text}</div>;
+  const { className, playerTile = Player.None, onClick = () => null } = props;
+
+  return (
+    <div className={`tile ${className}`} onClick={() => onClick()}>
+      {playerTile}
+    </div>
+  );
 };
 
 export default Tile;
