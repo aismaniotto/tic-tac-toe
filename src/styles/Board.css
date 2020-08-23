@@ -1,0 +1,39 @@
+.board {
+  background-color: white;
+}
+
+.board__tile {
+  margin: 2px;
+}
+
+.board__tile--top {
+  margin: 0 2px 2px 2px;
+}
+
+.board__tile--bottom {
+  margin: 2px 2px 0 2px;
+}
+
+.board__tile--left {
+  margin: 2px 2px 2px 0;
+}
+
+.board__tile--right {
+  margin: 2px 0 2px 2px;
+}
+
+.board__tile--top-left {
+  margin: 0 2px 2px 0;
+}
+
+.board__tile--top-right {
+  margin: 0 0 2px 2px;
+}
+
+.board__tile--bottom-left {
+  margin: 2px 2px 0 0;
+}
+
+.board__tile--bottom-right {
+  margin: 2px 0 0 2px;
+}

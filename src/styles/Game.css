@@ -1,0 +1,13 @@
+body {
+  background-color: black;
+}
+
+.game {
+  margin: 20px;
+  color: white;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

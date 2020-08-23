@@ -1,0 +1,10 @@
+.tile {
+  text-align: center;
+  height: 150px;
+  width: 150px;
+  padding: 0;
+  font-size: 100px;
+  color: white;
+  border: 0;
+  background-color: black;
+}
