@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Board.css";
 import Row from "./Row";
 import TileComponent from "./Tile";
 import { Player, Tile, Status } from "../Game/types";
+import swal from "sweetalert";
 
 const Board: React.FC = () => {
   const [currentPlayer, setCurrentPlayer] = useState(Player.X);
@@ -74,12 +75,117 @@ const Board: React.FC = () => {
         setTile2x2(currentPlayer);
         break;
     }
+    var status = checkCurrentStatus();
+
+    if (status === Status.ItsATie) {
+      swal("It's a tie!").then(() => resetTiles());
+    } else if (status === Status.PlayerOWin) {
+      swal("Player O is the winner!").then(() => resetTiles());
+    } else if (status === Status.PlayerXWin) {
+      swal("Player X is the winner!").then(() => resetTiles());
+    }
 
     setCurrentPlayer(currentPlayer === Player.O ? Player.X : Player.O);
   };
 
-  const checkCurrentStatus = (currentPlayer: Player) => {
+  const checkCurrentStatus = () => {
+    const gameTiles: Array<number> = [
+      tile0x0 === Player.O ? -1 : tile0x0 === Player.X ? 1 : 0,
+      tile0x1 === Player.O ? -1 : tile0x1 === Player.X ? 1 : 0,
+      tile0x2 === Player.O ? -1 : tile0x2 === Player.X ? 1 : 0,
+      tile1x0 === Player.O ? -1 : tile1x0 === Player.X ? 1 : 0,
+      tile1x1 === Player.O ? -1 : tile1x1 === Player.X ? 1 : 0,
+      tile1x2 === Player.O ? -1 : tile1x2 === Player.X ? 1 : 0,
+      tile2x0 === Player.O ? -1 : tile2x0 === Player.X ? 1 : 0,
+      tile2x1 === Player.O ? -1 : tile2x1 === Player.X ? 1 : 0,
+      tile2x2 === Player.O ? -1 : tile2x2 === Player.X ? 1 : 0,
+    ];
+
+    const tilesFromCurrentPlayer: Array<number> = [
+      tile0x0 === currentPlayer ? Tile.Tile0x0 : 0,
+      tile0x1 === currentPlayer ? Tile.Tile0x1 : 0,
+      tile0x2 === currentPlayer ? Tile.Tile0x2 : 0,
+      tile1x0 === currentPlayer ? Tile.Tile1x0 : 0,
+      tile1x1 === currentPlayer ? Tile.Tile1x1 : 0,
+      tile1x2 === currentPlayer ? Tile.Tile1x2 : 0,
+      tile2x0 === currentPlayer ? Tile.Tile2x0 : 0,
+      tile2x1 === currentPlayer ? Tile.Tile2x1 : 0,
+      tile2x2 === currentPlayer ? Tile.Tile2x2 : 0,
+    ];
+
+    if (
+      tilesFromCurrentPlayer[0] +
+        tilesFromCurrentPlayer[1] +
+        tilesFromCurrentPlayer[2] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    } else if (
+      tilesFromCurrentPlayer[3] +
+        tilesFromCurrentPlayer[4] +
+        tilesFromCurrentPlayer[5] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    } else if (
+      tilesFromCurrentPlayer[6] +
+        tilesFromCurrentPlayer[7] +
+        tilesFromCurrentPlayer[8] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    } else if (
+      tilesFromCurrentPlayer[0] +
+        tilesFromCurrentPlayer[3] +
+        tilesFromCurrentPlayer[6] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    } else if (
+      tilesFromCurrentPlayer[1] +
+        tilesFromCurrentPlayer[4] +
+        tilesFromCurrentPlayer[7] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    } else if (
+      tilesFromCurrentPlayer[2] +
+        tilesFromCurrentPlayer[5] +
+        tilesFromCurrentPlayer[8] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    } else if (
+      tilesFromCurrentPlayer[0] +
+        tilesFromCurrentPlayer[4] +
+        tilesFromCurrentPlayer[8] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    } else if (
+      tilesFromCurrentPlayer[2] +
+        tilesFromCurrentPlayer[4] +
+        tilesFromCurrentPlayer[6] ===
+      15
+    ) {
+      return currentPlayer === Player.O ? Status.PlayerOWin : Status.PlayerXWin;
+    }
+
+    if (gameTiles.filter((x) => x === 0).length === 0) return Status.ItsATie;
+
     return Status.InProgress;
+  };
+
+  const resetTiles = () => {
+    setTile0x0(Player.None);
+    setTile0x1(Player.None);
+    setTile0x2(Player.None);
+    setTile1x0(Player.None);
+    setTile1x1(Player.None);
+    setTile1x2(Player.None);
+    setTile2x0(Player.None);
+    setTile2x1(Player.None);
+    setTile2x2(Player.None);
   };
 
   return (
