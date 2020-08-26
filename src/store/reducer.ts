@@ -3,7 +3,7 @@ import { GameState, GameTypes, Status, Player, Tile } from "./types";
 
 const INITIAL_STATE: GameState = {
   scoreX: 0,
-  scoreY: 0,
+  scoreO: 0,
   status: Status.InProgress,
   currentPlayer: Player.X,
   tile0x0: Player.None,
@@ -197,7 +197,13 @@ const reducer: Reducer<GameState> = (state = INITIAL_STATE, action) => {
       }
 
     case GameTypes.CHECK_STATUS:
-      return { ...state, status: checkCurrentStatus(state) };
+      const status = checkCurrentStatus(state);
+      return {
+        ...state,
+        status: status,
+        scoreX: status === Status.PlayerXWin ? state.scoreX + 1 : state.scoreX,
+        scoreO: status === Status.PlayerOWin ? state.scoreO + 1 : state.scoreO,
+      };
 
     case GameTypes.NEXT_TURN:
       return {

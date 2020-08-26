@@ -42,7 +42,7 @@ export enum Status {
  */
 export interface GameState {
   readonly scoreX: number;
-  readonly scoreY: number;
+  readonly scoreO: number;
   readonly status: Status;
   readonly currentPlayer: Player;
   readonly tile0x0: Player;

@@ -3,11 +3,9 @@ body {
 }
 
 .game {
-  margin: 20px;
+  width: min-content;
+  margin: auto;
   color: white;
   display: flex;
-  height: 100vh;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
