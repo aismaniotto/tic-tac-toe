@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Tile.css";
-import { Player } from "../Game/types";
+import { Player } from "../store/types";
 
 interface Props {
   onClick?: () => void;
