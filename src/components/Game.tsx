@@ -16,7 +16,7 @@ type Props = GameState & DispatchProps;
 const Game: React.FC<Props> = (props: Props) => {
   const { scoreX, scoreO, resetGame } = props;
 
-  document.title = "Jogo da Velha";
+  document.title = "Tic Tac Toe";
   return (
     <div className="game">
       <ScoreBoard
