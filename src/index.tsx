@@ -4,15 +4,14 @@ import "./index.css";
 import Game from "./components/Game";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { createStore, Store } from "redux";
-import reducer from "./store/reducer";
-import { GameState } from "./store/types";
-
-const store: Store<GameState> = createStore(reducer);
+import { store, persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
   <Provider store={store}>
-    <Game />
+    <PersistGate loading={null} persistor={persistor}>
+      <Game />
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
